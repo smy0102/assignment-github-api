@@ -1,10 +1,10 @@
 import React from 'react';
-import RepositoryCard from './components/RepositoryCard';
+import Main from './pages/Main';
 
 function App() {
   return (
     <div>
-      <RepositoryCard />
+      <Main />
     </div>
   );
 }
