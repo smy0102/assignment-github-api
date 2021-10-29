@@ -1,11 +1,15 @@
 import React from 'react';
-import Main from './pages/Main';
+import { ThemeProvider } from 'styled-components';
+import Routes from './Routes';
+import GlobalStyle from './styles/GlobalStyle';
+import theme from './styles/theme';
 
 function App() {
   return (
-    <div>
-      <Main />
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Routes />
+    </ThemeProvider>
   );
 }
 
