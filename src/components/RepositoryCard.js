@@ -28,11 +28,10 @@ const RepositoryCard = () => {
 
 const CardContainer = styled.div`
   ${flexSet('column')}
-  width: 60%;
+  margin: 12px 0;
   padding: 10px;
   border: ${props => props.theme.basicBorder};
   border-radius: 5px;
-  margin: 15px;
   box-shadow: 0 0 5px ${props => props.theme.lightGray};
 `;
 
