@@ -21,10 +21,11 @@ const Main = () => {
 
 const MainContainer = styled.div`
   ${flexSet}
+  margin-top: 45px;
 `;
 
 const ContentWrapper = styled.div`
-  margin: 40px auto;
+  margin: 20px auto;
 `;
 
 const PageTitle = styled.h1`
