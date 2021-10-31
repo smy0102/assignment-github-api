@@ -10,7 +10,6 @@ const NavContainer = styled.nav`
   ${flexSet('row', 'center', 'center')}
   width: 100%;
   height: 45px;
-  padding: 0px 10px;
   background-color: rgba(255, 255, 255);
   box-shadow: 0px 1px 5px 2px rgba(150, 150, 150, 0.8);
   z-index: 10;

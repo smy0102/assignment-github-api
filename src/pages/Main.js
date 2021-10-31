@@ -25,11 +25,11 @@ const MainContainer = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  width: 60%;
   margin: 20px auto;
 `;
 
 const PageTitle = styled.h1`
-  width: 60%;
   margin: 30px 0;
   font-size: 20px;
   font-weight: 800;
