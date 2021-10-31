@@ -1,19 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import SearchResult from '../components/search/SearchResult';
 import NoResult from '../components/search/NoResult';
+import { getRepository } from '../api';
 import { flexSet } from '../styles/mixin';
 
 const Search = () => {
+  const [inputValue, setInputValue] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [data, setData] = useState();
+  const [subScribedData, setSubscribedData] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const updateTerm = event => {
+    const { value } = event.target;
+    setInputValue(value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    if (!inputValue) {
+      alert('Please enter a search term');
+    } else {
+      setSearchTerm(inputValue);
+      searchByTerm(inputValue);
+    }
+  };
+
+  const deleteInput = () => {
+    setInputValue('');
+  };
+
+  const searchByTerm = async value => {
+    try {
+      setLoading(true);
+      const { data: result } = await getRepository(value);
+      setData(result);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setInputValue('');
+      setLoading(false);
+    }
+  };
+
   return (
     <SearchContainer>
       <ContentWrapper>
         <PageTitle>SEARCH</PageTitle>
         <SearchInputWrapper>
-          <Form>
-            <Input placeholder="Search Repositories by name" />
+          <Icon />
+          <Form onSubmit={handleSubmit}>
+            <input type="text" value={inputValue} onChange={updateTerm} />
           </Form>
+          <DeleteButton isOn={inputValue} onClick={deleteInput}>
+            X
+          </DeleteButton>
         </SearchInputWrapper>
-        <NoResult />
+        {loading ? (
+          <div>'loading'</div>
+        ) : (
+          <>
+            {data && data.total_count !== 0 && (
+              <SearchResult data={data} searchTerm={searchTerm} />
+            )}
+            {data && data.total_count === 0 && (
+              <NoResult searchTerm={searchTerm} />
+            )}
+          </>
+        )}
       </ContentWrapper>
     </SearchContainer>
   );
@@ -37,19 +94,32 @@ const PageTitle = styled.h1`
 
 const SearchInputWrapper = styled.div`
   ${flexSet}
-  width: 300px;
-  padding: 5px 15px;
-  border: ${props => props.theme.basicBorder};
-  border-radius: 20px;
+  width: 190px;
+  padding: 5px;
+  position: relative;
+  border-bottom: 1px solid ${props => props.theme.lightGray};
+`;
+
+const Icon = styled.div`
+  width: 12px;
+  height: 12px;
+  background: center center / cover url('icon/loupe.png');
+  opacity: 0.4;
 `;
 
 const Form = styled.form`
-  width: 100%;
+  position: absolute;
+  top: 3px;
+  left: 22px;
 `;
 
-const Input = styled.input`
-  all: unset;
-  width: 100%;
+const DeleteButton = styled.button`
+  visibility: ${props => (props.isOn ? 'visible' : 'hidden')};
+  position: absolute;
+  top: 5px;
+  left: 170px;
+  color: ${props => props.theme.basicGray};
+  cursor: pointer;
 `;
 
 export default Search;

@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { flexSet } from '../../styles/mixin';
 
-const NoResult = () => {
+const NoResult = ({ searchTerm }) => {
   return (
     <NoResultContainer>
       <LoupeImage />
       <Text>
         We couldn’t find any repositories
-        <br /> matching 'SearchTerm'
+        <br /> matching '{searchTerm}'
       </Text>
     </NoResultContainer>
   );
