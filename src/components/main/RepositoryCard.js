@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexSet, buttonSet } from '../styles/mixin';
+import { flexSet, buttonSet } from '../../styles/mixin';
 
 const RepositoryCard = () => {
   return (

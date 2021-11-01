@@ -1,5 +1,6 @@
 import React from 'react';
-import RepositoryCard from '../components/RepositoryCard';
+import RepositoryCard from '../components/main/RepositoryCard';
+import NoSubscription from '../components/main/NoSubscription';
 import styled from 'styled-components';
 import { flexSet } from '../styles/mixin';
 
@@ -8,12 +9,7 @@ const Main = () => {
     <MainContainer>
       <ContentWrapper>
         <PageTitle>MY REPOSITORY</PageTitle>
-        <div>
-          <RepositoryCard />
-          <RepositoryCard />
-          <RepositoryCard />
-          <RepositoryCard />
-        </div>
+        <NoSubscription />
       </ContentWrapper>
     </MainContainer>
   );
