@@ -21,5 +21,6 @@ export const buttonSet = (
   color: ${fontColor};
   background-color: ${bgColor};
   font-size: ${fontSize};
+  text-align: center;
   cursor: pointer;
 `;

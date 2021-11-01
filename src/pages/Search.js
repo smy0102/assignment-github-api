@@ -9,7 +9,6 @@ const Search = () => {
   const [inputValue, setInputValue] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState();
-  const [subScribedData, setSubscribedData] = useState();
   const [loading, setLoading] = useState(false);
 
   const updateTerm = event => {

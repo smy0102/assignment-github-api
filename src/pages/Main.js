@@ -11,13 +11,28 @@ const Main = () => {
     setSubscribeData(JSON.parse(localStorage.getItem('subscribe')));
   }, []);
 
+  const handleUnsubscribe = event => {
+    const filteredData = subscribeData.filter(
+      data => data.id !== Number(event.target.id)
+    );
+
+    if (window.confirm('Do you want to unsubscribe?')) {
+      localStorage.setItem('subscribe', JSON.stringify(filteredData));
+      setSubscribeData(filteredData);
+    }
+  };
+
   return (
     <MainContainer>
       <ContentWrapper>
         <PageTitle>MY REPOSITORY</PageTitle>
         {subscribeData && subscribeData.length !== 0 ? (
           subscribeData.map(data => (
-            <RepositoryCard key={data.id} data={data} />
+            <RepositoryCard
+              key={data.id}
+              data={data}
+              handleUnsubscribe={handleUnsubscribe}
+            />
           ))
         ) : (
           <NoSubscription />
