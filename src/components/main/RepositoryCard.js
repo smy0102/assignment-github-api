@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { flexSet, buttonSet } from '../../styles/mixin';
 
-const RepositoryCard = ({ data }) => {
+const RepositoryCard = ({ data, handleUnsubscribe }) => {
   return (
     <CardContainer>
       <OwnerWrapper>
@@ -20,7 +20,9 @@ const RepositoryCard = ({ data }) => {
         </Description>
         <div>
           <IssueButton>ISSUES</IssueButton>
-          <DeleteButton>DELETE</DeleteButton>
+          <DeleteButton id={data.id} onClick={handleUnsubscribe}>
+            UNSUBSCRIBE
+          </DeleteButton>
         </div>
       </div>
     </CardContainer>
@@ -71,6 +73,7 @@ const Description = styled.p`
 
 const IssueButton = styled.button`
   ${buttonSet('rgb(255,255,255)', 'rgb(51,102,255)', '12px')}
+  width: 70px;
   margin-right: 5px;
   opacity: 0.7;
 
@@ -79,7 +82,8 @@ const IssueButton = styled.button`
   }
 `;
 const DeleteButton = styled.button`
-  ${buttonSet('rgb(255,255,255)', 'rgb(51, 51, 51)', '12px')}
+  ${buttonSet('rgb(255,255,255)', 'rgb(150, 150, 150)', '12px')}
+  width: 70px;
   opacity: 0.7;
 
   :hover {
