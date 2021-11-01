@@ -2,20 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { flexSet, buttonSet } from '../../styles/mixin';
 
-const RepositoryCard = () => {
+const RepositoryCard = ({ data }) => {
   return (
     <CardContainer>
       <OwnerWrapper>
-        <OwnerAvatar
-          AvatarImg={`https://avatars.githubusercontent.com/u/35775?v=4`}
-        />
-        <OwnerLogin>our-record</OwnerLogin>
+        <OwnerAvatar AvatarImg={data.owner.avatar_url} />
+        <OwnerLogin>{data.owner.login}</OwnerLogin>
       </OwnerWrapper>
       <div>
-        <Title>js-jquery-event-listeners-readme-bootcamp-prep-000</Title>
+        <LinkedTitle href={data.html_url} target="_blank">
+          {data.name}
+        </LinkedTitle>
         <Description>
-          Examples of how to do query, style, dom, ajax, event etc like jQuery
-          with plain javascript.
+          {data.description && data.description.length > 80
+            ? data.description.substring(0, 80)
+            : data.description}
         </Description>
         <div>
           <IssueButton>ISSUES</IssueButton>
@@ -52,11 +53,15 @@ const OwnerLogin = styled.p`
   font-weight: 800;
 `;
 
-const Title = styled.h2`
+const LinkedTitle = styled.a`
   color: ${props => props.theme.keyColor};
   font-size: 18px;
   font-weight: 600;
   line-height: 120%;
+
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 const Description = styled.p`

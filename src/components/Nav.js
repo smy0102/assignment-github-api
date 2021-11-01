@@ -39,8 +39,8 @@ const Nav = ({ location: { pathname } }) => {
   return (
     <NavContainer>
       <List>
-        <Item current={pathname === '/repository'}>
-          <StyledLink to="/repository">My Repository</StyledLink>
+        <Item current={pathname === '/'}>
+          <StyledLink to="/">Subscription</StyledLink>
         </Item>
         <Item current={pathname === '/search'}>
           <StyledLink to="/search">Search</StyledLink>
