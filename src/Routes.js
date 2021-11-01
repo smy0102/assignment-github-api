@@ -14,7 +14,7 @@ const Routes = () => {
     <Router>
       <Nav />
       <Switch>
-        <Route path="/repository" exact component={Main} />
+        <Route path="/" exact component={Main} />
         <Route path="/search" exact component={Search} />
         <Redirect path="/*" component={Main} />
       </Switch>
