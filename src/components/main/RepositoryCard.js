@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-<<<<<<< HEAD:src/components/main/RepositoryCard.js
-=======
 import { Link } from 'react-router-dom';
->>>>>>> 6c9b6ed (Add: 등록한 Repository Issue 모아보기 기능 구현 완료):src/components/RepositoryCard.js
 import { flexSet, buttonSet } from '../../styles/mixin';
 
 const RepositoryCard = ({ data, handleUnsubscribe }) => {
@@ -23,9 +20,6 @@ const RepositoryCard = ({ data, handleUnsubscribe }) => {
             : data.description}
         </Description>
         <div>
-<<<<<<< HEAD:src/components/main/RepositoryCard.js
-          <IssueButton>ISSUES</IssueButton>
-=======
           <Link
             to={{
               pathname: `/issue/${data.name}`,
@@ -34,7 +28,6 @@ const RepositoryCard = ({ data, handleUnsubscribe }) => {
           >
             <IssueButton>ISSUES</IssueButton>
           </Link>
->>>>>>> 6c9b6ed (Add: 등록한 Repository Issue 모아보기 기능 구현 완료):src/components/RepositoryCard.js
           <DeleteButton id={data.id} onClick={handleUnsubscribe}>
             UNSUBSCRIBE
           </DeleteButton>
