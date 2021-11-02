@@ -4,6 +4,7 @@ import SearchResult from '../components/search/SearchResult';
 import NoResult from '../components/search/NoResult';
 import { getRepository } from '../api';
 import { flexSet } from '../styles/mixin';
+import { SearchOutlined } from '@ant-design/icons';
 
 const Search = () => {
   const [inputValue, setInputValue] = useState('');
@@ -35,8 +36,9 @@ const Search = () => {
     try {
       setLoading(true);
       const { data: result } = await getRepository(value);
+      const newenw = await getRepository(value);
       setData(result);
-      console.log(result);
+      console.log(newenw);
     } catch (error) {
       console.log(error);
     } finally {
@@ -50,7 +52,7 @@ const Search = () => {
       <ContentWrapper>
         <PageTitle>SEARCH</PageTitle>
         <SearchInputWrapper>
-          <Icon />
+          <SearchOutlined />
           <Form onSubmit={handleSubmit}>
             <input type="text" value={inputValue} onChange={updateTerm} />
           </Form>
@@ -97,13 +99,6 @@ const SearchInputWrapper = styled.div`
   padding: 5px;
   position: relative;
   border-bottom: 1px solid ${props => props.theme.lightGray};
-`;
-
-const Icon = styled.div`
-  width: 12px;
-  height: 12px;
-  background: center center / cover url('icon/loupe.png');
-  opacity: 0.4;
 `;
 
 const Form = styled.form`

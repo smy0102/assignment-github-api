@@ -6,3 +6,6 @@ const api = axios.create({
 
 export const getRepository = searchTerm =>
   api.get(`search/repositories?q=${searchTerm}+in:name`);
+
+export const getIssue = (owner, name) =>
+  api.get(`repos/${owner}/${name}/issues?state=all`);
