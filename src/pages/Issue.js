@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Loading from '../components/Loading';
 import { getIssue } from '../api';
 import { flexSet } from '../styles/mixin';
 import {
@@ -15,6 +16,7 @@ const Issue = ({ location: { state } }) => {
   const [currentList, setCurrentList] = useState();
   const [totalPages, setTotalPages] = useState();
   const [pageNumber, setPageNumber] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getIssueData(state.owner, state.name);
@@ -27,12 +29,15 @@ const Issue = ({ location: { state } }) => {
 
   const getIssueData = async (owner, name) => {
     try {
+      setLoading(true);
       const { data } = await getIssue(owner, name);
       const total = Math.ceil(data.length / 10);
       setIssueData(data);
       handlePage(0, total);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,75 +63,83 @@ const Issue = ({ location: { state } }) => {
     <IssueContainer>
       <ContentWrapper>
         <RepositoryName>{state.name}</RepositoryName>
-        <ResultTable>
-          <thead>
-            <tr>
-              <TableHead>Title</TableHead>
-              <TableHead>Created on</TableHead>
-              <TableHead>Updated on</TableHead>
-              <TableHead>State</TableHead>
-            </tr>
-          </thead>
-          <thead>
-            {currentList &&
-              currentList.length !== 0 &&
-              currentList.map(data => {
-                return (
-                  <TableBody key={data.id}>
-                    <MainWrapper>
-                      <TitleWrapper>
-                        <LinkTitle href={data.html_url} target="_blank">
-                          {data.title}
-                        </LinkTitle>
-                        <Description>
-                          Issue opend by {data.user.login}
-                        </Description>
-                      </TitleWrapper>
-                    </MainWrapper>
-                    <SubInformation>
-                      {data.created_at.substring(0, 10)}
-                    </SubInformation>
-                    <SubInformation>
-                      {data.updated_at.substring(0, 10)}
-                    </SubInformation>
-                    <SubInformation>{data.state}</SubInformation>
-                  </TableBody>
-                );
-              })}
-          </thead>
-        </ResultTable>
-        <PagenationWrapper>
-          {totalPages > 5 && (
-            <>
-              <DoubleLeftOutlined onClick={() => changeList(1)} />
-              <LeftOutlined
-                onClick={() => currentPage !== 1 && changeList(currentPage - 1)}
-              />
-            </>
-          )}
-          <PageNumberWrapper>
-            {pageNumber &&
-              pageNumber.map(page => (
-                <Page
-                  key={page}
-                  bold={currentPage === page ? '800' : 'normal'}
-                  onClick={() => currentPage !== page && changeList(page)}
-                >
-                  {page}
-                </Page>
-              ))}
-          </PageNumberWrapper>
-          {totalPages > 5 && (
-            <>
-              <RightOutlined
-                onClick={() =>
-                  currentPage !== totalPages && changeList(currentPage + 1)
-                }
-              />
-              <DoubleRightOutlined onClick={() => changeList(totalPages)} />
-            </>
-          )}
-        </PagenationWrapper>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <ResultTable>
+              <thead>
+                <tr>
+                  <TableHead>Title</TableHead>
+                  <TableHead>Created on</TableHead>
+                  <TableHead>Updated on</TableHead>
+                  <TableHead>State</TableHead>
+                </tr>
+              </thead>
+              <thead>
+                {currentList &&
+                  currentList.length !== 0 &&
+                  currentList.map(data => {
+                    return (
+                      <TableBody key={data.id}>
+                        <MainWrapper>
+                          <TitleWrapper>
+                            <LinkTitle href={data.html_url} target="_blank">
+                              {data.title}
+                            </LinkTitle>
+                            <Description>
+                              Issue opend by {data.user.login}
+                            </Description>
+                          </TitleWrapper>
+                        </MainWrapper>
+                        <SubInformation>
+                          {data.created_at.substring(0, 10)}
+                        </SubInformation>
+                        <SubInformation>
+                          {data.updated_at.substring(0, 10)}
+                        </SubInformation>
+                        <SubInformation>{data.state}</SubInformation>
+                      </TableBody>
+                    );
+                  })}
+              </thead>
+            </ResultTable>
+            <PagenationWrapper>
+              {totalPages > 5 && (
+                <>
+                  <DoubleLeftOutlined onClick={() => changeList(1)} />
+                  <LeftOutlined
+                    onClick={() =>
+                      currentPage !== 1 && changeList(currentPage - 1)
+                    }
+                  />
+                </>
+              )}
+              <PageNumberWrapper>
+                {pageNumber &&
+                  pageNumber.map(page => (
+                    <Page
+                      key={page}
+                      bold={currentPage === page ? '800' : 'normal'}
+                      onClick={() => currentPage !== page && changeList(page)}
+                    >
+                      {page}
+                    </Page>
+                  ))}
+              </PageNumberWrapper>
+              {totalPages > 5 && (
+                <>
+                  <RightOutlined
+                    onClick={() =>
+                      currentPage !== totalPages && changeList(currentPage + 1)
+                    }
+                  />
+                  <DoubleRightOutlined onClick={() => changeList(totalPages)} />
+                </>
+              )}
+            </PagenationWrapper>
+          </>
+        )}
       </ContentWrapper>
     </IssueContainer>
   );

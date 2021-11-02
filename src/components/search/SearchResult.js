@@ -95,6 +95,7 @@ const SearchResult = ({ data, searchTerm }) => {
 const ResultContainer = styled.div`
   margin-top: 30px;
 `;
+
 const ResultCount = styled.p`
   font-weight: 600;
   margin-bottom: 10px;
