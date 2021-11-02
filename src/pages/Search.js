@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchResult from '../components/search/SearchResult';
 import NoResult from '../components/search/NoResult';
+import Loading from '../components/Loading';
 import { getRepository } from '../api';
 import { flexSet } from '../styles/mixin';
 import { SearchOutlined } from '@ant-design/icons';
@@ -61,7 +62,7 @@ const Search = () => {
           </DeleteButton>
         </SearchInputWrapper>
         {loading ? (
-          <div>'loading'</div>
+          <Loading />
         ) : (
           <>
             {data && data.total_count !== 0 && (
