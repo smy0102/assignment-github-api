@@ -118,10 +118,6 @@ const TableHead = styled.th`
   ${tableHeadSet}
 `;
 
-// const TableBody = styled.tr`
-//   border-bottom: 1px solid rgba(230, 230, 230, 0.7);
-// `;
-
 const MainWrapper = styled.td`
   ${flexSet}
   padding: 10px 5px;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { flexSet } from '../../styles/mixin';
 import {
@@ -17,11 +17,6 @@ const Pagenation = ({
 }) => {
   const [pageNumber, setPageNumber] = useState();
 
-  useEffect(() => {
-    changeList(currentPage);
-    handlePage(0, totalPages);
-  }, []);
-
   const handlePage = (start, last) => {
     let page = [];
     for (let i = start; i < last; i++) {
@@ -30,15 +25,23 @@ const Pagenation = ({
     setPageNumber(page);
   };
 
-  const changeList = page => {
-    const startIndex = (page - 1) * 10;
-    setCurrentList(listData.slice(startIndex, startIndex + 9));
-    setCurrentPage(page);
-    totalPages > 5 &&
-      (page !== totalPages
-        ? handlePage(page, page + 5)
-        : handlePage(page - 5, page));
-  };
+  const changeList = useCallback(
+    page => {
+      const startIndex = (page - 1) * 10;
+      setCurrentList(listData.slice(startIndex, startIndex + 9));
+      setCurrentPage(page);
+      totalPages > 5 &&
+        (page !== totalPages
+          ? handlePage(page, page + 5)
+          : handlePage(page - 5, page));
+    },
+    [listData, setCurrentList, setCurrentPage, totalPages]
+  );
+
+  useEffect(() => {
+    changeList(currentPage);
+    handlePage(0, totalPages);
+  }, [changeList, currentPage, totalPages]);
 
   return (
     <PagenationWrapper>
