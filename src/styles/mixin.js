@@ -24,3 +24,25 @@ export const buttonSet = (
   text-align: center;
   cursor: pointer;
 `;
+
+export const tableHeadSet = () => css`
+  padding: 10px 7px;
+  background-color: rgba(230, 230, 230, 0.7);
+  vertical-align: middle;
+  color: ${props => props.theme.darkGray};
+  font-size: 12px;
+
+  :nth-child(2),
+  :nth-child(3),
+  :nth-child(4) {
+    width: 80px;
+  }
+`;
+
+export const tableSubSet = () => css`
+  padding: 10px 5px;
+  color: ${props => props.theme.basicGray};
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+`;

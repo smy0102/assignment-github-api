@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SearchResult from '../components/search/SearchResult';
-import Message from '../components/Message';
-import Loading from '../components/Loading';
+import SearchResult from '../Components/Search/SearchResult';
+import Message from '../Components/Common/Message';
+import Loading from '../Components/Common/Loading';
 import { getRepository } from '../api';
 import { flexSet } from '../styles/mixin';
 import { SearchOutlined } from '@ant-design/icons';
@@ -37,11 +37,9 @@ const Search = () => {
     try {
       setLoading(true);
       const { data: result } = await getRepository(value);
-      const newenw = await getRepository(value);
       setData(result);
-      console.log(newenw);
     } catch (error) {
-      console.log(error);
+      console.log(`error: ${error}`);
     } finally {
       setInputValue('');
       setLoading(false);

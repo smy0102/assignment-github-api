@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import { flexSet } from '../styles/mixin';
+import { flexSet } from '../../styles/mixin';
 
 const Loading = () => {
   const loadingIcon = <LoadingOutlined spin />;

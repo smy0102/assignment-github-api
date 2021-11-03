@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { flexSet } from '../styles/mixin';
+import { flexSet } from '../../styles/mixin';
 
 const Nav = ({ location: { pathname } }) => {
   return (
