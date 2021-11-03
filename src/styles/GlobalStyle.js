@@ -13,12 +13,19 @@ const GlobalStyle = createGlobalStyle`
   }
   
    body {
+    color: rgb(120, 120, 120);
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 14px;
   }
 
-  input, button {
+  input {
     all: unset;
+    margin-left: 5px;
+  }
+
+  button {
+    all: unset;
+    cursor: pointer;
   }
 `;
 

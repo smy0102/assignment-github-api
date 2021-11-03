@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import IssueList from '../components/Issue/IssueList';
 import Pagenation from '../components/Pagenation';
 import Loading from '../components/Loading';
+import Message from '../components/Message';
 import { getIssue } from '../api';
 import { flexSet } from '../styles/mixin';
 
@@ -30,48 +32,12 @@ const Issue = ({ location: { state } }) => {
   return (
     <IssueContainer>
       <ContentWrapper>
-        <RepositoryName>{state.name}</RepositoryName>
         {loading ? (
           <Loading />
-        ) : (
+        ) : currentList ? (
           <>
-            <ResultTable>
-              <thead>
-                <tr>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Created on</TableHead>
-                  <TableHead>Updated on</TableHead>
-                  <TableHead>State</TableHead>
-                </tr>
-              </thead>
-              <thead>
-                {currentList &&
-                  currentList.length !== 0 &&
-                  currentList.map(data => {
-                    return (
-                      <TableBody key={data.id}>
-                        <MainWrapper>
-                          <TitleWrapper>
-                            <LinkTitle href={data.html_url} target="_blank">
-                              {data.title}
-                            </LinkTitle>
-                            <Description>
-                              Issue opend by {data.user.login}
-                            </Description>
-                          </TitleWrapper>
-                        </MainWrapper>
-                        <SubInformation>
-                          {data.created_at.substring(0, 10)}
-                        </SubInformation>
-                        <SubInformation>
-                          {data.updated_at.substring(0, 10)}
-                        </SubInformation>
-                        <SubInformation>{data.state}</SubInformation>
-                      </TableBody>
-                    );
-                  })}
-              </thead>
-            </ResultTable>
+            <RepositoryName>'{state.name}' Issues</RepositoryName>
+            <IssueList list={currentList} />
             <Pagenation
               listData={issueData}
               totalPages={Math.ceil(issueData.length / 10)}
@@ -80,6 +46,11 @@ const Issue = ({ location: { state } }) => {
               setCurrentList={setCurrentList}
             />
           </>
+        ) : (
+          <Message
+            imgUrl={'icon/empty-box.png'}
+            text={`There's no Issue for '${state.name}'`}
+          />
         )}
       </ContentWrapper>
     </IssueContainer>
@@ -97,63 +68,9 @@ const ContentWrapper = styled.div`
 `;
 const RepositoryName = styled.h1`
   margin: 30px 0;
+  color: ${props => props.theme.darkGray};
   font-size: 20px;
   font-weight: 800;
-`;
-const ResultTable = styled.table`
-  width: 100%;
-`;
-
-const TableHead = styled.th`
-  padding: 10px 7px;
-  background-color: rgba(240, 240, 240, 0.7);
-  vertical-align: middle;
-  font-size: 12px;
-
-  :nth-child(2),
-  :nth-child(3),
-  :nth-child(4) {
-    width: 80px;
-  }
-`;
-
-const TableBody = styled.tr`
-  border-bottom: 1px solid rgba(230, 230, 230, 0.7);
-`;
-
-const MainWrapper = styled.td`
-  ${flexSet}
-  padding: 10px 5px;
-`;
-
-const TitleWrapper = styled.div`
-  margin-left: 7px;
-`;
-
-const LinkTitle = styled.a`
-  color: ${props => props.theme.keyColor};
-  font-size: 12px;
-  font-weight: 600;
-
-  :hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-`;
-
-const Description = styled.div`
-  margin-top: 5px;
-  color: ${props => props.theme.DarkGray};
-  font-size: 12px;
-  line-height: 150%;
-`;
-
-const SubInformation = styled.td`
-  padding: 10px 5px;
-  color: ${props => props.theme.basicGray};
-  font-size: 12px;
-  text-align: center;
-  vertical-align: middle;
 `;
 
 export default Issue;
