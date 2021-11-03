@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Pagenation from '../Pagenation';
 import { flexSet } from '../../styles/mixin';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 const SearchResult = ({ data, searchTerm }) => {
   const [subscribeData, setSubscribeData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentList, setCurrentList] = useState();
 
   useEffect(() => {
     setSubscribeData(JSON.parse(localStorage.getItem('subscribe')));
@@ -50,44 +53,52 @@ const SearchResult = ({ data, searchTerm }) => {
           </tr>
         </thead>
         <tbody>
-          {data.items.map(item => (
-            <tr key={item.id}>
-              <MainWrapper>
-                <HeartButtonWrapper id={item.id} onClick={handleSubscribe}>
-                  {subscribeData &&
-                  subscribeData.some(data => item.id === data.id) ? (
-                    <HeartFilled />
-                  ) : (
-                    <HeartOutlined />
-                  )}
-                </HeartButtonWrapper>
-                <TitleWrapper>
-                  <LinkTitle href={item.html_url} target="_blank">
-                    {item.full_name}
-                  </LinkTitle>
-                  <Description>
-                    {item.description && item.description.length > 70
-                      ? `${item.description.substring(0, 70)}...`
-                      : item.description}
-                  </Description>
-                  <Language>
-                    {item.language && `Mainly written in ${item.language}`}
-                  </Language>
-                </TitleWrapper>
-              </MainWrapper>
-              <SubInformation>
-                {item.created_at.substring(0, 10)}
-              </SubInformation>
-              <SubInformation>
-                {item.updated_at.substring(0, 10)}
-              </SubInformation>
-              <SubInformation>
-                {item.stargazers_count.toLocaleString()}
-              </SubInformation>
-            </tr>
-          ))}
+          {currentList &&
+            currentList.map(item => (
+              <tr key={item.id}>
+                <MainWrapper>
+                  <HeartButtonWrapper id={item.id} onClick={handleSubscribe}>
+                    {subscribeData &&
+                    subscribeData.some(data => item.id === data.id) ? (
+                      <HeartFilled />
+                    ) : (
+                      <HeartOutlined />
+                    )}
+                  </HeartButtonWrapper>
+                  <TitleWrapper>
+                    <LinkTitle href={item.html_url} target="_blank">
+                      {item.full_name}
+                    </LinkTitle>
+                    <Description>
+                      {item.description && item.description.length > 70
+                        ? `${item.description.substring(0, 70)}...`
+                        : item.description}
+                    </Description>
+                    <Language>
+                      {item.language && `Mainly written in ${item.language}`}
+                    </Language>
+                  </TitleWrapper>
+                </MainWrapper>
+                <SubInformation>
+                  {item.created_at.substring(0, 10)}
+                </SubInformation>
+                <SubInformation>
+                  {item.updated_at.substring(0, 10)}
+                </SubInformation>
+                <SubInformation>
+                  {item.stargazers_count.toLocaleString()}
+                </SubInformation>
+              </tr>
+            ))}
         </tbody>
       </ResultTable>
+      <Pagenation
+        listData={data.items}
+        totalPages={Math.ceil(data.items.length / 10)}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        setCurrentList={setCurrentList}
+      />
     </ResultContainer>
   );
 };
