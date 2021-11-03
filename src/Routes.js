@@ -18,7 +18,7 @@ const Routes = () => {
         <Route path="/" exact component={Main} />
         <Route path="/issue/:dataName" exact component={Issue} />
         <Route path="/search" exact component={Search} />
-        <Redirect path="/*" component={Main} />
+        <Redirect path="/*" to={Main} />
       </Switch>
     </Router>
   );

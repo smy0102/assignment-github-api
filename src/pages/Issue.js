@@ -15,7 +15,7 @@ const Issue = ({ location: { state } }) => {
 
   useEffect(() => {
     getIssueData(state.owner, state.name);
-  }, []);
+  }, [state.name, state.owner]);
 
   const getIssueData = async (owner, name) => {
     try {
@@ -34,7 +34,7 @@ const Issue = ({ location: { state } }) => {
       <ContentWrapper>
         {loading ? (
           <Loading />
-        ) : currentList ? (
+        ) : issueData ? (
           <>
             <RepositoryName>'{state.name}' Issues</RepositoryName>
             <IssueList list={currentList} />
