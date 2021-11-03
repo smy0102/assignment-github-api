@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import RepositoryCard from '../components/main/RepositoryCard';
-import Message from '../components/Message';
+import RepositoryCard from '../Components/Main/RepositoryCard';
+import Message from '../Components/Common/Message';
 import styled from 'styled-components';
 import { flexSet } from '../styles/mixin';
 

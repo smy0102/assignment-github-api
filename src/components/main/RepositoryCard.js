@@ -4,31 +4,33 @@ import { Link } from 'react-router-dom';
 import { flexSet, buttonSet } from '../../styles/mixin';
 
 const RepositoryCard = ({ data, handleUnsubscribe }) => {
+  const { owner, html_url, description, name, id } = data;
+
   return (
     <CardContainer>
       <OwnerWrapper>
-        <OwnerAvatar AvatarImg={data.owner.avatar_url} />
-        <OwnerLogin>{data.owner.login}</OwnerLogin>
+        <OwnerAvatar AvatarImg={owner.avatar_url} />
+        <OwnerLogin>{owner.login}</OwnerLogin>
       </OwnerWrapper>
       <div>
-        <LinkedTitle href={data.html_url} target="_blank">
+        <LinkedTitle href={html_url} target="_blank">
           {data.name}
         </LinkedTitle>
         <Description>
-          {data.description && data.description.length > 80
-            ? data.description.substring(0, 80)
-            : data.description}
+          {description && description.length > 80
+            ? description.substring(0, 80)
+            : description}
         </Description>
         <div>
           <Link
             to={{
-              pathname: `/issue/${data.name}`,
-              state: { owner: data.owner.login, name: data.name },
+              pathname: `/issue/${name}`,
+              state: { owner: owner.login, name: name },
             }}
           >
             <IssueButton>ISSUES</IssueButton>
           </Link>
-          <DeleteButton id={data.id} onClick={handleUnsubscribe}>
+          <DeleteButton id={id} onClick={handleUnsubscribe}>
             UNSUBSCRIBE
           </DeleteButton>
         </div>

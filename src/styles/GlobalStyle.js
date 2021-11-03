@@ -6,16 +6,16 @@ const GlobalStyle = createGlobalStyle`
     ${reset}
     box-sizing: border-box;
   }
+
+  body {
+    color: rgb(120, 120, 120);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+  }
   
   a {
     text-decoration: none;
     color: inherit;
-  }
-  
-   body {
-    color: rgb(120, 120, 120);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
   }
 
   input {
@@ -26,6 +26,10 @@ const GlobalStyle = createGlobalStyle`
   button {
     all: unset;
     cursor: pointer;
+  }
+
+  tr {
+    border-bottom: 1px solid rgba(230, 230, 230, 0.7);
   }
 `;
 

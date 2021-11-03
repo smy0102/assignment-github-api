@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Pagenation from '../Pagenation';
-import { flexSet } from '../../styles/mixin';
+import Pagenation from '../Common/Pagenation';
+import { flexSet, tableHeadSet, tableSubSet } from '../../styles/mixin';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 const SearchResult = ({ data, searchTerm }) => {
@@ -115,23 +115,16 @@ const ResultTable = styled.table`
 `;
 
 const TableHead = styled.th`
-  padding: 10px 7px;
-  background-color: rgba(240, 240, 240, 0.7);
-  vertical-align: middle;
-  color: ${props => props.theme.darkGray};
-  font-size: 12px;
-
-  :nth-child(2),
-  :nth-child(3),
-  :nth-child(4) {
-    width: 80px;
-  }
+  ${tableHeadSet}
 `;
+
+// const TableBody = styled.tr`
+//   border-bottom: 1px solid rgba(230, 230, 230, 0.7);
+// `;
 
 const MainWrapper = styled.td`
   ${flexSet}
   padding: 10px 5px;
-  border-bottom: 1px solid rgba(230, 230, 230, 0.7);
 `;
 
 const HeartButtonWrapper = styled.div`
@@ -154,7 +147,6 @@ const LinkTitle = styled.a`
 
   :hover {
     text-decoration: underline;
-    cursor: pointer;
   }
 `;
 
@@ -172,12 +164,7 @@ const Language = styled.div`
 `;
 
 const SubInformation = styled.td`
-  padding: 10px 5px;
-  border-bottom: 1px solid rgba(230, 230, 230, 0.7);
-  color: ${props => props.theme.basicGray};
-  font-size: 12px;
-  text-align: center;
-  vertical-align: middle;
+  ${tableSubSet}
 `;
 
 export default SearchResult;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import IssueList from '../components/Issue/IssueList';
-import Pagenation from '../components/Pagenation';
-import Loading from '../components/Loading';
-import Message from '../components/Message';
+import IssueList from '../Components/Issue/IssueList';
+import Pagenation from '../Components/Common/Pagenation';
+import Loading from '../Components/Common/Loading';
+import Message from '../Components/Common/Message';
 import { getIssue } from '../api';
 import { flexSet } from '../styles/mixin';
 
@@ -23,7 +23,7 @@ const Issue = ({ location: { state } }) => {
       const { data } = await getIssue(owner, name);
       setIssueData(data);
     } catch (error) {
-      console.log(error);
+      console.log(`error: ${error}`);
     } finally {
       setLoading(false);
     }

@@ -5,10 +5,10 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import Nav from './components/Nav';
-import Main from './pages/Main';
-import Search from './pages/Search';
-import Issue from './pages/Issue';
+import Nav from './Components/Common/Nav';
+import Main from './Pages/Main';
+import Search from './Pages/Search';
+import Issue from './Pages/Issue';
 
 const Routes = () => {
   return (

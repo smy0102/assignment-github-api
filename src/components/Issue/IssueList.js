@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexSet } from '../../styles/mixin';
+import { flexSet, tableHeadSet, tableSubSet } from '../../styles/mixin';
 
 const IssueList = ({ list }) => {
   return (
@@ -19,7 +19,7 @@ const IssueList = ({ list }) => {
             list.length !== 0 &&
             list.map(data => {
               return (
-                <TableBody key={data.id}>
+                <tr key={data.id}>
                   <MainWrapper>
                     <TitleWrapper>
                       <LinkTitle href={data.html_url} target="_blank">
@@ -37,7 +37,7 @@ const IssueList = ({ list }) => {
                     {data.updated_at.substring(0, 10)}
                   </SubInformation>
                   <SubInformation>{data.state}</SubInformation>
-                </TableBody>
+                </tr>
               );
             })}
         </thead>
@@ -51,22 +51,12 @@ const ResultTable = styled.table`
 `;
 
 const TableHead = styled.th`
-  padding: 10px 7px;
-  background-color: rgba(240, 240, 240, 0.7);
-  vertical-align: middle;
-  color: ${props => props.theme.darkGray};
-  font-size: 12px;
-
-  :nth-child(2),
-  :nth-child(3),
-  :nth-child(4) {
-    width: 80px;
-  }
+  ${tableHeadSet}
 `;
 
-const TableBody = styled.tr`
-  border-bottom: 1px solid rgba(230, 230, 230, 0.7);
-`;
+// const TableBody = styled.tr`
+//   border-bottom: 1px solid rgba(230, 230, 230, 0.7);
+// `;
 
 const MainWrapper = styled.td`
   ${flexSet}
@@ -84,7 +74,6 @@ const LinkTitle = styled.a`
 
   :hover {
     text-decoration: underline;
-    cursor: pointer;
   }
 `;
 
@@ -96,11 +85,7 @@ const Description = styled.div`
 `;
 
 const SubInformation = styled.td`
-  padding: 10px 5px;
-  color: ${props => props.theme.basicGray};
-  font-size: 12px;
-  text-align: center;
-  vertical-align: middle;
+  ${tableSubSet}
 `;
 
 export default IssueList;

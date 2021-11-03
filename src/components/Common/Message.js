@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexSet } from '../styles/mixin';
+import { flexSet } from '../../styles/mixin';
 
 const Message = ({ imgUrl, text }) => {
   return (
     <NoResultContainer>
-      <Image imgUrl={imgUrl} />
+      <Image imageSrc={imgUrl} />
       <Text>{text}</Text>
     </NoResultContainer>
   );
@@ -19,7 +19,7 @@ const NoResultContainer = styled.div`
 const Image = styled.div`
   width: 50px;
   height: 50px;
-  background: center center / 100% url(${props => props.imgUrl});
+  background: center center / 100% url(${props => props.imageSrc});
   opacity: 0.4;
 `;
 
