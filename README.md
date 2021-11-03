@@ -36,4 +36,8 @@ $ npm start
 
 <br>
 
-## 배포 주소 
+## 데모 영상 
+<a href="https://youtu.be/n0K2T5e3Q3Q">
+    <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white/"
+        style="width: 80px; height : auto; margin-left : 10px; margin-right : 10px;"/>
+</a> 
