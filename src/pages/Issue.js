@@ -1,62 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Pagenation from '../components/Pagenation';
 import Loading from '../components/Loading';
 import { getIssue } from '../api';
 import { flexSet } from '../styles/mixin';
-import {
-  DoubleRightOutlined,
-  DoubleLeftOutlined,
-  LeftOutlined,
-  RightOutlined,
-} from '@ant-design/icons';
 
 const Issue = ({ location: { state } }) => {
   const [issueData, setIssueData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentList, setCurrentList] = useState();
-  const [totalPages, setTotalPages] = useState();
-  const [pageNumber, setPageNumber] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getIssueData(state.owner, state.name);
   }, []);
 
-  useEffect(() => {
-    changeList(currentPage);
-    setTotalPages(Math.ceil(issueData.length / 10));
-  }, [issueData]);
-
   const getIssueData = async (owner, name) => {
     try {
       setLoading(true);
       const { data } = await getIssue(owner, name);
-      const total = Math.ceil(data.length / 10);
       setIssueData(data);
-      handlePage(0, total);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handlePage = (start, last) => {
-    let page = [];
-    for (let i = start; i < last; i++) {
-      page.push(i + 1);
-    }
-    setPageNumber(page);
-  };
-
-  const changeList = page => {
-    const list = issueData.slice(page - 1, page + 9);
-    setCurrentList(list);
-    setCurrentPage(page);
-    totalPages > 5 &&
-      (page !== totalPages
-        ? handlePage(page, page + 5)
-        : handlePage(page - 5, page));
   };
 
   return (
@@ -104,40 +72,13 @@ const Issue = ({ location: { state } }) => {
                   })}
               </thead>
             </ResultTable>
-            <PagenationWrapper>
-              {totalPages > 5 && (
-                <>
-                  <DoubleLeftOutlined onClick={() => changeList(1)} />
-                  <LeftOutlined
-                    onClick={() =>
-                      currentPage !== 1 && changeList(currentPage - 1)
-                    }
-                  />
-                </>
-              )}
-              <PageNumberWrapper>
-                {pageNumber &&
-                  pageNumber.map(page => (
-                    <Page
-                      key={page}
-                      bold={currentPage === page ? '800' : 'normal'}
-                      onClick={() => currentPage !== page && changeList(page)}
-                    >
-                      {page}
-                    </Page>
-                  ))}
-              </PageNumberWrapper>
-              {totalPages > 5 && (
-                <>
-                  <RightOutlined
-                    onClick={() =>
-                      currentPage !== totalPages && changeList(currentPage + 1)
-                    }
-                  />
-                  <DoubleRightOutlined onClick={() => changeList(totalPages)} />
-                </>
-              )}
-            </PagenationWrapper>
+            <Pagenation
+              listData={issueData}
+              totalPages={Math.ceil(issueData.length / 10)}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              setCurrentList={setCurrentList}
+            />
           </>
         )}
       </ContentWrapper>
@@ -213,23 +154,6 @@ const SubInformation = styled.td`
   font-size: 12px;
   text-align: center;
   vertical-align: middle;
-`;
-
-const PagenationWrapper = styled.div`
-  ${flexSet('row', 'center', 'center')}
-  margin: 15px 0;
-  color: ${props => props.theme.darkGray};
-  font-size: 12px;
-  cursor: pointer;
-`;
-
-const PageNumberWrapper = styled.div`
-  ${flexSet('row', 'space-evenly', 'center')}
-`;
-
-const Page = styled.div`
-  margin: 0 7px;
-  font-weight: ${props => props.bold};
 `;
 
 export default Issue;
