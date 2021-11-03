@@ -5,12 +5,13 @@ import { flexSet, tableHeadSet, tableSubSet } from '../../styles/mixin';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 const SearchResult = ({ data, searchTerm }) => {
-  const [subscribeData, setSubscribeData] = useState();
+  const [subscribeData, setSubscribeData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentList, setCurrentList] = useState();
 
   useEffect(() => {
-    setSubscribeData(JSON.parse(localStorage.getItem('subscribe')));
+    const data = JSON.parse(localStorage.getItem('subscribe'));
+    data && setSubscribeData(data);
   }, [searchTerm]);
 
   useEffect(() => {
