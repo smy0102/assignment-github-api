@@ -3,6 +3,21 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { flexSet } from '../styles/mixin';
 
+const Nav = ({ location: { pathname } }) => {
+  return (
+    <NavContainer>
+      <List>
+        <Item current={pathname === '/'}>
+          <StyledLink to="/">Subscription</StyledLink>
+        </Item>
+        <Item current={pathname === '/search'}>
+          <StyledLink to="/search">Search</StyledLink>
+        </Item>
+      </List>
+    </NavContainer>
+  );
+};
+
 const NavContainer = styled.nav`
   position: fixed;
   top: 0;
@@ -31,23 +46,13 @@ const Item = styled.li`
 `;
 
 const StyledLink = styled(Link)`
-  height: 45px;
   ${flexSet('row', 'center', 'center')}
-`;
+  height: 45px;
+  color: ${props => props.theme.darkGray};
 
-const Nav = ({ location: { pathname } }) => {
-  return (
-    <NavContainer>
-      <List>
-        <Item current={pathname === '/'}>
-          <StyledLink to="/">Subscription</StyledLink>
-        </Item>
-        <Item current={pathname === '/search'}>
-          <StyledLink to="/search">Search</StyledLink>
-        </Item>
-      </List>
-    </NavContainer>
-  );
-};
+  :active {
+    color: ${props => props.theme.keyColor};
+  }
+`;
 
 export default withRouter(Nav);

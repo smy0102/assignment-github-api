@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchResult from '../components/search/SearchResult';
-import NoResult from '../components/search/NoResult';
+import Message from '../components/Message';
 import Loading from '../components/Loading';
 import { getRepository } from '../api';
 import { flexSet } from '../styles/mixin';
@@ -51,11 +51,18 @@ const Search = () => {
   return (
     <SearchContainer>
       <ContentWrapper>
-        <PageTitle>SEARCH</PageTitle>
         <SearchInputWrapper>
-          <SearchOutlined />
           <Form onSubmit={handleSubmit}>
-            <input type="text" value={inputValue} onChange={updateTerm} />
+            <label htmlFor="search">
+              <SearchOutlined />
+            </label>
+            <input
+              id="search"
+              type="text"
+              placeholder="Search by name..."
+              value={inputValue}
+              onChange={updateTerm}
+            />
           </Form>
           <DeleteButton isOn={inputValue} onClick={deleteInput}>
             X
@@ -69,7 +76,11 @@ const Search = () => {
               <SearchResult data={data} searchTerm={searchTerm} />
             )}
             {data && data.total_count === 0 && (
-              <NoResult searchTerm={searchTerm} />
+              <Message
+                imgUrl={'icon/subscribe.png'}
+                text={`We couldn’t find anything matching '${searchTerm}'`}
+                searchTerm={searchTerm}
+              />
             )}
           </>
         )}
@@ -80,7 +91,7 @@ const Search = () => {
 
 const SearchContainer = styled.div`
   ${flexSet}
-  margin-top: 45px;
+  margin-top: 65px;
 `;
 
 const ContentWrapper = styled.div`
@@ -88,33 +99,26 @@ const ContentWrapper = styled.div`
   margin: 20px auto;
 `;
 
-const PageTitle = styled.h1`
-  margin: 30px 0;
-  font-size: 20px;
-  font-weight: 800;
-`;
-
 const SearchInputWrapper = styled.div`
   ${flexSet}
   width: 190px;
   padding: 5px;
   position: relative;
-  border-bottom: 1px solid ${props => props.theme.lightGray};
+  border-bottom: 1px solid ${props => props.theme.basicGray};
 `;
 
 const Form = styled.form`
   position: absolute;
-  top: 3px;
-  left: 22px;
+  top: -8px;
+  left: 5px;
 `;
 
 const DeleteButton = styled.button`
   visibility: ${props => (props.isOn ? 'visible' : 'hidden')};
   position: absolute;
-  top: 5px;
+  top: -8px;
   left: 170px;
   color: ${props => props.theme.basicGray};
-  cursor: pointer;
 `;
 
 export default Search;

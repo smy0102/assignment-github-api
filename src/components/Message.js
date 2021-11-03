@@ -1,28 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexSet } from '../../styles/mixin';
+import { flexSet } from '../styles/mixin';
 
-const NoResult = ({ searchTerm }) => {
+const Message = ({ imgUrl, text }) => {
   return (
     <NoResultContainer>
-      <LoupeImage />
-      <Text>
-        We couldn’t find any repositories
-        <br /> matching '{searchTerm}'
-      </Text>
+      <Image imgUrl={imgUrl} />
+      <Text>{text}</Text>
     </NoResultContainer>
   );
 };
 
 const NoResultContainer = styled.div`
   ${flexSet('column', 'center', 'center')}
-  padding: 70px 0;
+  margin-top: 50px;
 `;
 
-const LoupeImage = styled.div`
+const Image = styled.div`
   width: 50px;
   height: 50px;
-  background: center center / 100% url('icon/loupe.png');
+  background: center center / 100% url(${props => props.imgUrl});
   opacity: 0.4;
 `;
 
@@ -35,4 +32,4 @@ const Text = styled.div`
   text-align: center;
 `;
 
-export default NoResult;
+export default Message;

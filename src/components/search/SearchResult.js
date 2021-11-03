@@ -39,10 +39,7 @@ const SearchResult = ({ data, searchTerm }) => {
 
   return (
     <ResultContainer>
-      <ResultCount>
-        '{data.total_count.toLocaleString()}' repository results for '
-        {searchTerm}'
-      </ResultCount>
+      <ResultText>repository results for '{searchTerm}'</ResultText>
       <ResultTable>
         <thead>
           <tr>
@@ -107,7 +104,8 @@ const ResultContainer = styled.div`
   margin-top: 30px;
 `;
 
-const ResultCount = styled.p`
+const ResultText = styled.p`
+  color: ${props => props.theme.darkGray};
   font-weight: 600;
   margin-bottom: 10px;
 `;
@@ -120,6 +118,7 @@ const TableHead = styled.th`
   padding: 10px 7px;
   background-color: rgba(240, 240, 240, 0.7);
   vertical-align: middle;
+  color: ${props => props.theme.darkGray};
   font-size: 12px;
 
   :nth-child(2),
