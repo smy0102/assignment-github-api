@@ -75,7 +75,7 @@ const Search = () => {
             )}
             {data && data.total_count === 0 && (
               <Message
-                imgUrl={'icon/subscribe.png'}
+                imgUrl={'icon/loupe.png'}
                 text={`We couldn’t find anything matching '${searchTerm}'`}
                 searchTerm={searchTerm}
               />

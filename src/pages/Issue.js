@@ -34,7 +34,7 @@ const Issue = ({ location: { state } }) => {
       <ContentWrapper>
         {loading ? (
           <Loading />
-        ) : issueData ? (
+        ) : issueData && issueData.length !== 0 ? (
           <>
             <RepositoryName>'{state.name}' Issues</RepositoryName>
             <IssueList list={currentList} />
